@@ -1,0 +1,249 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DjUniversity</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@200;400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+    <section class="header" style="background-image: linear-gradient(rgba(4, 8, 9, 0.7), rgba(4, 9, 30, 0.7)), url('{% static 'img/banners.jpg' %}')">
+        <nav>
+            <a href="" onclick="location.reload();"><img src="{% static 'img/logo.png' %}"></a>
+            <div class="nav-links" id="nav-links">
+                <i class="fa fa-times-circle" onclick="hideMenu()"></i>
+
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">Courses</a></li>
+                    <li><a href="/login/">Signin</a></li>
+                    <li><a href="/signup/">Signup</a></li>
+                    <li><a href="">About</a></li>
+
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+
+        </nav>
+        <div class="text-box">
+            <h1>World's Leading University</h1>
+            <p style="color: #f8f8f8;">
+                Welcome to our prestigious university, 
+                a beacon of excellence in education and a leader in shaping future generations. With a rich history of academic achievements and a commitment to innovation, our university stands tall among the world's top educational institutions.
+                 We take pride in fostering a dynamic learning environment that empowers students to explore their passions, broaden their horizons, and unlock their full potential.
+            </p>
+            <br>
+            <a href="" class="discover-btn">Discover Our University</a>
+        </div>
+
+
+    </section>
+
+    <section class="sec2">
+        <div class="card">
+            <i class="fas fa-user-graduate"></i>
+            <span class="num" data-val="4013">0</span>
+            <span class="text">Students</span>
+        </div>
+        <div class="card">
+            <i class="fas fa-flask"></i>
+            <span class="num" data-val="27">0</span>
+            <span class="text">Research Centers</span>
+        </div>
+        <div class="card">
+            <i class="fas fa-book"></i>
+            <span class="num" data-val="971">0</span>
+            <span class="text">Scientific Publications</span>
+        </div>
+        <div class="card">
+            <i class="fas fa-graduation-cap"></i>
+            <span class="num" data-val="2800">0</span>
+            <span class="text">Graduated Students</span>
+        </div>
+    </section>
+    
+
+    <section class="course">
+        <div class="course-header">
+            <h1>Explore Our Programs</h1>
+            <p>Discover a world of possibilities with our diverse range of programs designed to empower your future.</p>
+        </div>
+        <div class="course-cards">
+            <div class="course-card">
+                <h3>Master's Degrees</h3>
+                <p>Immerse yourself in advanced studies with our cutting-edge Master's degree programs.</p>
+            </div>
+            <div class="course-card">
+                <h3>Engineering Programs</h3>
+                <p>Engineer a better tomorrow through our innovative and dynamic Engineering programs.</p>
+            </div>
+            <div class="course-card">
+                <h3>PhD Opportunities</h3>
+                <p>Pursue your passion for research and contribute to the frontiers of knowledge with our PhD programs.</p>
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="campus">
+        <h1>Life in campus</h1>
+        <p>Welcome to our enchanting campus, a haven of learning nestled amidst lush greenery and serene surroundings. Spread across acres of picturesque landscapes, our campus offers a harmonious blend of modern infrastructure and natural beauty.</p>
+        <div class="rows">
+            <div class="campus-col">
+                <img src="{% static 'img/Quran.jpg' %}">
+                <div class="layer">
+                    <h3>Quran recitation</h3>
+                </div>
+            </div>
+            <div class="campus-col">
+                <img src="{% static 'img/training.jpg' %}">
+                <div class="layer">
+                    <h3>Working-out</h3>
+                </div>
+            </div>
+            <div class="campus-col">
+                <img src="{% static 'img/Koutoubia.jpg' %}">
+                <div class="layer">
+                    <h3>Close to Koutoubia</h3>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="facilities">
+        <div class="facilities-header">
+            <h1>Discover Our Modern Facilities</h1>
+            <p>Explore the state-of-the-art facilities that create an exceptional learning environment at DjUniversity.</p>
+        </div>
+        <div class="facilities-cards">
+            <div class="facilities-card">
+                <img src="{% static 'img/library.jpg' %}" alt="Library">
+                <h3>A Vast Library</h3>
+                <p>The DjUniversity Library stands as a beacon of knowledge and intellectual exploration, offering students a world-class learning haven right on our campus. With a vast collection of books, journals, and digital resources, our library is an invaluable asset that enriches the academic journey of our students.</p>
+            </div>
+            <div class="facilities-card">
+                <img src="{% static 'img/football.jpg' %}" alt="Football Stadium">
+                <h3>Football Stadium</h3>
+                <p>Our modern football stadium provides a platform for sports enthusiasts to engage in healthy competition and teamwork. It's not just a field; it's a space where students come together to forge connections and pursue their passion for sports.</p>
+            </div>
+            <div class="facilities-card">
+                <img src="{% static 'img/cafeteria.jpg' %}" alt="Cafeteria">
+                <h3>World-Class Cafeteria</h3>
+                <p>Indulge in a delightful dining experience at our world-class cafeteria. With a diverse menu that caters to various tastes, our cafeteria is a hub of social interaction and nourishment, providing students with a comfortable space to recharge.</p>
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="testimonials">
+        <div class="testimonials-header">
+            <h1>What Our Graduates Say</h1>
+            <p>Discover how our students have been transformed by their journey at DjUniversity.</p>
+        </div>
+        <div class="testimonials-cards">
+            <div class="testimonials-card">
+                <div class="testimonial-content">
+                    <p>In the realm where data engineering meets AI, innovation knows no bounds. Our journey at DjUniversity taught me that harnessing data's power can redefine the future, propelling us into uncharted territories of knowledge and discovery</p>
+                    <h3>Dr. Unknown - Bridging Data Engineering and AI Innovations</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+                <div class="testimonial-avatar">
+                    <img src="{% static 'img/user1.png' %}" alt="User 1">
+                </div>
+            </div>
+            <div class="testimonials-card">
+                <div class="testimonial-content">
+                    <p>Building cities isn't just about bricks and mortar; it's about weaving dreams into urban fabric. At DjUniversity, I learned that civil engineering marries artistry with engineering precision, creating sustainable cityscapes that echo the harmony of nature.</p>
+                    <h3>Dr. Known - Shaping Skylines and Sustainable Cities</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                </div>
+                <div class="testimonial-avatar">
+                    <img src="{% static 'img/user2.png' %}" alt="User 2">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="action" style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{% static 'img/banner2.jpg' %}');">
+
+        <h1>Join our online<br>  courses</h1>
+        <a href="" class="discover-btn">CONTACT US</a>
+    </section>
+
+    <section class="footer">
+        <div class="footer-content">
+            <h4>About Us</h4>
+            <p>The backend has been entirely developed by <b>Oussama BENABBOU</b>,<br>while some frontend parts designs have been inspired by others.</p>
+        </div>
+        <div class="social-icons">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </section>
+    
+    
+
+    <script>
+      
+    var navLinks = document.getElementById("navLinks");
+
+    function showMenu() {
+        navLinks.style.right = "0";
+    }
+
+    function hideMenu() {
+        navLinks.style.right = "-200px";
+    }
+
+    let valueDisplays = document.querySelectorAll(".num");
+    let interval = 4000;
+
+    valueDisplays.forEach((valueDisplay) => {
+        let endValue = parseInt(valueDisplay.getAttribute("data-val"));
+        let startValue = Math.floor(endValue * 0.85); 
+        let duration = Math.floor(interval / (endValue - startValue)); 
+        let counter = setInterval(function () {
+            if (startValue <= endValue) {
+                valueDisplay.textContent = startValue;
+                startValue++;
+            } else {
+                clearInterval(counter);
+            }
+        }, duration);
+    });
+
+
+        </script>
+        <style>
+  
+
+    </style>
+</body>
+</html>

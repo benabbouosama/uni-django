@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/stylecr.css' %}">
+    <title>Settings</title>
+</head>
+<body>
+    {% csrf_token %}
+    <div class="menu">
+        <ul>
+            <li class="profile">
+                <div class="image-box">
+                    <img id="user-picture" src="{{ user.picture.url }}" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 10px;">
+                </div>
+                <h2>{{ fname }}</h2>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:homeprof' pk=request.user.pk %}">
+                    <img src="{% static 'img/home.png' %}" alt="home">
+                    <p>Home</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:courses' %}">
+                    <img src="{% static 'img/homework.png' %}" alt="clients">
+                    <p>Courses</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/report.png' %}" alt="products">
+                    <p>Reports & Internships</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/library.png' %}" alt="charts">
+                    <p>Library</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:coord' pk=request.user.pk %}">
+                    <img src="{% static 'img/registration.png' %}" alt="favourites">
+                    <p>Coordination</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/orientation.png' %}" alt="favourites">
+                    <p>Orientation</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/grades.png' %}" alt="favourites">
+                    <p>Grades</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:settings' %}" class="active">
+                    <img src="{% static 'img/settings.png' %}" alt="settings">
+                    <p>settings</p>
+                </a>
+            </li>
+            <li class="log-out">
+                <a href="{% url 'Accounts:signout' %}">
+                    <img src="{% static 'img/log out.png' %}" alt="log out">
+                    <p>log out</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+        <div class="content">
+            <div class="title-info">
+                <p>Settings :</p>
+                <img src="{% static 'img/dashboard.png' %}" onclick="toggleNotifi()">
+            </div>
+            
+            <div class="user-info" style = "text-align: center; background-color : rgb(0, 37, 247)">
+                <p class="info" style=" color: #000;"><b style=" color: #000;">Email:</b> {{ user.username }}</p>
+                <p class="info" style=" color: #000;"><b style=" color: #000;">First Name:</b> {{ user.first_name }}</p>
+                <p class="info" style=" color: #000;"><b style=" color: #000;">Last Name:</b> {{ user.last_name }}</p>
+                <p class="info" style=" color: #000;"><b style=" color: #000;">Arabic First Name:</b> {{ user.ArabicFirst_name }}</p>
+                <p class="info" style=" color: #000;"><b style=" color: #000;">Arabic Last Name:</b> {{ user.ArabicLast_name }}</p>
+            </div>
+            <h2 style = "color: brown;">Edit your informations : </h2>
+            <br>
+            <form class="user-info-form" method="post" style="text-align: center;" action="{% url 'Accounts:update_profile' %}">
+                {% csrf_token %}
+                <div class="user-info" style="background-color : rgb(0, 37, 247)"  >
+                    <label class="label" style="    color: #000; ">Email:</label>
+                    <input type="email" class="input" name="email"  style=" color: #000; " value="{{ user.username }}">
+                    <br>
+                    <label class="label" style="    color: #000; ">First Name:</label>
+                    <input type="text" class="input" style=" color: #000;" name="first_name" value="{{ user.first_name }}">
+                    <br>
+                    <label class="label" style=" color: #000;">Last Name:</label>
+                    <input type="text" style=" color: #000;" class="input" name="last_name" value="{{ user.last_name }}">
+                    <br>
+                    <label class="label" style=" color: #000;">Arabic First Name:</label>
+                    <input type="text" style=" color: #000;" class="input" name="ArabicFirst_name" value="{{ user.ArabicFirst_name }}">
+                    <br>
+                    <label class="label" style=" color: #000;">Arabic Last Name:</label>
+                    <input type="text" style=" color: #000;" class="input" name="ArabicLast_name" value="{{ user.ArabicLast_name }}">
+                    <br>
+                    <label class="label" style=" color: #000;">Password:</label>
+                    <input type="password" style=" color: #000;" class="input" name="password">
+                </div>
+                <br>
+                <button type="submit" class="submit-button" style="color: #000;">Save Changes</button>
+            </form>
+           
+        </div>
+        <div class="notifi-box" id="box">
+            <h2>Notifications</h2>
+            <div class="notifi-item">
+                <img src="{% static 'img/user1.png' %}">
+                <div class="text">
+                    <h4>Notification 2 </h4>
+                    <p>7 minutes ago</p>
+                </div>
+            </div>
+            <div class="notifi-item">
+                <img src="{% static 'img/user1.png' %}">
+                <div class="text">
+                    <h4>Notification 1</h4>
+                    <p>2 hour ago</p>
+                </div>
+            </div>
+        </div>
+                
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

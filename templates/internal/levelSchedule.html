@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/stylecr.css' %}">
+    <title>Level</title>
+</head>
+<body>
+    {% csrf_token %}
+    <div class="menu">
+        <ul>
+            <li class="profile">
+                <div class="image-box">
+                    <img id="user-picture" src="{{ user.picture.url }}" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 10px;">
+                </div>
+                <h2>{{ fname }}</h2>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:homeprof' pk=request.user.pk %}" class="active">
+                    <img src="{% static 'img/home.png' %}" alt="home">
+                    <p>Home</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:courses' %}">
+                    <img src="{% static 'img/homework.png' %}" alt="clients">
+                    <p>Courses</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/report.png' %}" alt="products">
+                    <p>Reports & Internships</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/library.png' %}" alt="charts">
+                    <p>Library</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:coord' pk=request.user.pk %}">
+                    <img src="{% static 'img/registration.png' %}" alt="favourites">
+                    <p>Coordination</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/orientation.png' %}" alt="favourites">
+                    <p>Orientation</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/grades.png' %}" alt="favourites">
+                    <p>Grades</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:settings' %}">
+                    <img src="{% static 'img/settings.png' %}" alt="settings">
+                    <p>settings</p>
+                </a>
+            </li>
+            <li class="log-out">
+                <a href="{% url 'Accounts:signout' %}">
+                    <img src="{% static 'img/log out.png' %}" alt="log out">
+                    <p>log out</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+        <div class="content">
+            <div class="title-info">
+                <p>Choose the level :</p>
+                <img src="{% static 'img/dashboard.png' %}" onclick="toggleNotifi()">
+            </div>
+            <form method="post" action="{% url 'create_schedule' %}">
+                {% csrf_token %}
+                <label for="levelSelect">Select a level:</label>
+                <select id="levelSelect" name="selected_level">
+                    <option value="">Select a level</option>
+                    {% for level in levels_of_filiere %}
+                        <option value="{{ level.idLevel }}">{{ level.title }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Submit</button>
+            </form>
+           
+        </div>
+        <div class="notifi-box" id="box">
+            <h2>Notifications</h2>
+            <div class="notifi-item">
+                <img src="{% static 'img/user1.png' %}">
+                <div class="text">
+                    <h4>Notification 2 </h4>
+                    <p>7 minutes ago</p>
+                </div>
+            </div>
+            <div class="notifi-item">
+                <img src="{% static 'img/user1.png' %}">
+                <div class="text">
+                    <h4>Notification 1</h4>
+                    <p>2 hour ago</p>
+                </div>
+            </div>
+        </div>
+                
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

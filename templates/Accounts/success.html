@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Congratulations</title>
+    <meta http-equiv="refresh" content="6;url=/login"> 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .message {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            font-size: 24px;
+            max-width: 400px;
+            width: 80%;
+        }
+        .countdown {
+            font-size: 36px;
+            font-weight: bold;
+            color: #ff5555;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="message">
+            <div class="countdown" id="countdown">5</div>
+            <p>Your account has been created successfully , and needs an admin approval.</p>
+            <p>Redirecting to signin page in 5 seconds...</p>
+        </div>
+    </div>
+
+    <script>
+        let count = 5;
+        const countdownElement = document.getElementById('countdown');
+        const countdownInterval = setInterval(() => {
+            count--;
+            countdownElement.textContent = count;
+            if (count === 0) {
+                clearInterval(countdownInterval);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

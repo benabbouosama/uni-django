@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.form-group label,
+.form-group input,
+.form-group select {
+    flex: 1;
+    margin-right: 11px;
+    margin-bottom: 11px;
+}
+
+.form-group label {
+    flex-basis: 151px;
+}
+
+.form-group input[type="file"] {
+    flex-basis: 100%;
+}
+
+.form-group input[type="submit"] {
+    flex-basis: 100%;
+}

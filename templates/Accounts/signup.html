@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'poppins',sans-serif;
+            background-position: center;
+            background-size: cover;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sign Up</h1>
+        <form method="post" enctype="multipart/form-data" >
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="cin">CIN:</label>
+                <input type="text" name="cin" id="cin" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+            
+
+            <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input type="text" name="last_name" id="last_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ArabicLast_name">Arabic Last Name:</label>
+                <input type="text" name="ArabicLast_name" id="ArabicLast_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="picture">Profile Picture:</label>
+                <input type="file" name="picture" id="picture">
+            </div>
+
+            <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input type="text" name="first_name" id="first_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ArabicFirst_name">Arabic First Name:</label>
+                <input type="text" name="ArabicFirst_name" id="ArabicFirst_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="text" name="phone" id="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="user_type">User Type:</label>
+                <select name="user_type" id="user_type" onchange="showAdditionalFields(this.value)" required>
+                    <option value="" disabled selected>Select User Type</option>
+                    <option value="cadre_administrateur">Cadre Administrateur</option>
+                    <option value="professor">Professor</option>
+                    <option value="student">Student</option>
+                </select>
+            </div>
+
+            <div id="school_fields" class="form-group">
+                <label for="school">School:</label>
+                <select name="school" id="school" required>
+                    <option value="engineering_school">Engineering School</option>
+                </select>
+            </div>
+
+            <div id="cadre_admin_fields" class="additional-fields" style="display:none;">
+                <label for="grade">Grade:</label>
+                <input type="text" name="grade" id="grade">
+            </div>
+
+            <div id="professor_fields" class="additional-fields" style="display:none;">
+                <label for="specialite">Specialite:</label>
+                <input type="text" name="specialite" id="specialite">
+            </div>
+
+            <div id="student_fields" class="additional-fields" style="display:none;">
+                <label for="cne">CNE:</label>
+                <input type="text" name="cne" id="cne">
+
+                <label for="dateNaissance">Date of Birth:</label>
+                <input type="date" name="dateNaissance" id="dateNaissance">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" name="confirm_password" id="confirm_password" required>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Sign Up">
+            </div>
+            <p style="color: red;">{{message}}</p>
+            
+        </form>
+    </div>
+
+    <script>
+        function showAdditionalFields(userType) {
+            const additionalFields = document.querySelectorAll('.additional-fields');
+    
+            additionalFields.forEach(field => {
+                field.style.display = 'none';
+            });
+    
+            if (userType === 'cadre_administrateur') {
+                document.getElementById('cadre_admin_fields').style.display = 'flex';
+                document.getElementById('professor_fields').style.display = 'none';
+                document.getElementById('student_fields').style.display = 'none';
+            } else if (userType === 'professor') {
+                document.getElementById('cadre_admin_fields').style.display = 'none';
+                document.getElementById('professor_fields').style.display = 'flex';
+                document.getElementById('student_fields').style.display = 'none';
+            } else if (userType === 'student') {
+                document.getElementById('cadre_admin_fields').style.display = 'none';
+                document.getElementById('professor_fields').style.display = 'none';
+                document.getElementById('student_fields').style.display = 'flex';
+            }
+        }
+    </script>
+</body>
+</html>

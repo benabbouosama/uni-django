@@ -1,0 +1,236 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/styleint.css' %}">
+    <title>Welcome </title>
+    <style>
+        select {
+            width: 140px; 
+            overflow: auto; 
+           
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <ul>
+            <li class="profile">
+                <div class="image-box">
+                    <img id="user-picture" src="{{ user.picture.url }}" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 10px;">
+                </div>
+                <h2>{{ fname }}</h2>
+            </li>
+            <li>
+                <a href="#" class="active">
+                    <img src="{% static 'img/home.png' %}" alt="home">
+                    <p>Home</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:courses' %}">
+                    <img src="{% static 'img/homework.png' %}" alt="clients">
+                    <p>Courses</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/report.png' %}" alt="products">
+                    <p>Reports & Internships</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/library.png' %}" alt="charts">
+                    <p>Library</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:coord' pk=request.user.pk %}">
+                    <img src="{% static 'img/registration.png' %}" alt="favourites">
+                    <p>Re-registration</p>
+                </a>
+            </li>
+       
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/orientation.png' %}" alt="favourites">
+                    <p>Orientation</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/grades.png' %}" alt="favourites">
+                    <p>Grades</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:settings' %}">
+                    <img src="{% static 'img/settings.png' %}" alt="settings">
+                    <p>settings</p>
+                </a>
+            </li>
+            <li class="log-out">
+                <a href="{% url 'Accounts:signout' %}">
+                    <img src="{% static 'img/log out.png' %}" alt="log out">
+                    <p>log out</p>
+                </a>
+            </li>
+        </ul>
+
+        
+        
+        
+        
+
+    </div>
+    <div class="content">
+        <div class="title-info" >
+        <p>Welcome again , {{ fname }}</p>
+        <img src="{% static 'img/dashboard.png' %}" onclick="toggleNotifi()">
+        
+        </div>
+        <div class="data-info">
+            <div class="box">
+                <img src="{% static 'img/homeworkBig.png' %}">
+                <div class="data">
+                    <a href="{% url 'Accounts:courses' %}"><p>Courses</p></a>
+                </div>
+
+            </div>
+            <div class="box">
+                <img src="{% static 'img/request.png' %}">
+                <div class="data">
+                    <p>Requests</p>
+                </div>
+
+            </div>
+            <div class="box">
+                <img src="{% static 'img/schedule.png' %}">
+                <div class="data">
+                    <a href="{% url 'select_level' %}"><p>Schedules</p></a>
+                </div>
+
+            </div>
+            <div class="box">
+                <img src="{% static 'img/email.png' %}">
+                <div class="data">
+                    <p>Couriers</p>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="notifi-box" id="box">
+            <h2>Notifications</h2>
+            <div class="notifi-item">
+                <img src="{% static 'img/user1.png' %}">
+                <div class="text">
+                    <h4>Notification 2 </h4>
+                    <p>7 minutes ago</p>
+                </div>
+            </div>
+            <div class="notifi-item">
+                <img src="{% static 'img/user1.png' %}">
+                <div class="text">
+                    <h4>Notification 1</h4>
+                    <p>2 hour ago</p>
+                </div>
+            </div>
+        </div>
+        <div class="title-info">
+            
+            <div class="news-section">
+                <h2>Search for a Course</h2>
+        
+                <div class="form-group">
+                    <label for="filiere">Filiere:</label>
+                    <select name="filiere" id="filiere" style="width : 300px" required>
+                        {% for filiere in filieres %}
+                        <option value="{{ filiere }}">{{ filiere.titleFiliere }}</option>
+                                    {% endfor %}
+                    </select>
+                </div>
+        
+                <div class="form-group">
+                    <label for="level">Level:</label>
+                    <select name="level" id="level" style="width : 300px" required >
+                        {% for level in levels %}
+        <option value="{{ level.name }}">{{ level.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+        
+                <div class="form-group">
+                    <label for="module">Module:</label>
+                    <select name="module" id="module" style="width : 300px" required>
+                        {% for module in modules %}
+                        <option value="{{ module.title }}" title="{{ module.title }}">{{ module.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+        
+                <div class="form-group">
+                    <button id="search_button">Search</button>
+                </div>
+            </div>
+            <div class="news-section">
+                <h2>Latest News</h2>
+                {% for news_item in news %}
+                    <a href="{% url 'download_news_pdf' news_item.id %}">{{ news_item.title }}</a>
+                {% endfor %}
+                <button class="more-news-btn">More News</button>
+            </div>
+
+            <div id="search-results">
+            </div>
+        </div>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const searchButton = document.getElementById("search_button");
+                const searchResultsDiv = document.getElementById("search-results");
+        
+                searchButton.addEventListener("click", function () {
+                    const filiere = document.getElementById("filiere").value;
+                    const level = document.getElementById("level").value;
+                    const module = document.getElementById("module").value;
+        
+                    const xhr = new XMLHttpRequest();
+                    xhr.open("POST", "{% url 'search_courses' %}", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                            const response = JSON.parse(xhr.responseText);
+                            renderSearchResults(response.pdf_files);
+                        }
+                    };
+        
+                    const formData = new FormData();
+                    formData.append("filiere", filiere);
+                    formData.append("level", level);
+                    formData.append("module", module);
+        
+                    xhr.send(formData);
+                });
+        
+                function renderSearchResults(pdfFiles) {
+                    let html = "<h2>Search Results</h2>";
+                    pdfFiles.forEach(function (pdfFile) {
+                        html += `<a href="${pdfFile.url}" target="_blank">${pdfFile.name}</a><br>`;
+                    });
+                    searchResultsDiv.innerHTML = html;
+                }
+            });
+            document.getElementById('logout-image').addEventListener('click', function(event) {
+                event.preventDefault();
+                window.location.href = this.parentElement.getAttribute('href');
+            });
+        </script>
+        <script src="{% static 'js/script.js' %}"></script>
+
+    
+</body>
+</html>

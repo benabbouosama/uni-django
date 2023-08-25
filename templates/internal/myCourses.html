@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/stylepr.css' %}">
+    <title>Courses consultation</title>
+</head>
+<body>
+    <div class="menu">
+        <ul>
+            <li class="profile">
+                <div class="image-box">
+                    <img id="user-picture" src="{{ user.picture.url }}" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 10px;">
+                </div>
+                <h2>{{ fname }}</h2>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:homeint' pk=request.user.pk %}" >
+                    <img src="{% static 'img/home.png' %}" alt="home">
+                    <p>Home</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:courses' %}">
+                    <img src="{% static 'img/homework.png' %}" alt="clients">
+                    <p>Courses</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/report.png' %}" alt="products">
+                    <p>Reports & Internships</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/library.png' %}" alt="charts">
+                    <p>Library</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:coord' pk=request.user.pk %}">
+                    <img src="{% static 'img/registration.png' %}" alt="favourites">
+                    <p>Re-registration</p>
+                </a>
+            </li>
+       
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/orientation.png' %}" alt="favourites">
+                    <p>Orientation</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/grades.png' %}" alt="favourites">
+                    <p>Grades</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:settings' %}">
+                    <img src="{% static 'img/settings.png' %}" alt="settings">
+                    <p>settings</p>
+                </a>
+            </li>
+            <li class="log-out">
+                <a href="{% url 'Accounts:signout' %}">
+                    <img src="{% static 'img/log out.png' %}" alt="log out">
+                    <p>log out</p>
+                </a>
+            </li>
+        </ul>
+
+        
+        
+        
+        
+
+    </div>
+    <div class="content">
+        <div class="title-info" >
+        <p>Welcome again , {{ fname }}</p>
+        <img src="{% static 'img/dashboard.png' %}" onclick="toggleNotifi()">
+        
+        </div>
+        <div class="notifi-box" id="box">
+            <h2>Notifications</h2>
+            <div class="notifi-item">
+                <img src="{% static 'img/user1.png' %}">
+                <div class="text">
+                    <h4>Notification 2 </h4>
+                    <p>7 minutes ago</p>
+                </div>
+            </div>
+            <div class="notifi-item">
+                <img src="{% static 'img/user1.png' %}">
+                <div class="text">
+                    <h4>Notification 1</h4>
+                    <p>2 hour ago</p>
+                </div>
+            </div>
+        </div>
+        <div class="title-info">
+            <div class="news-section">
+                <h2>Search for a Course</h2>
+                <form id="search-form" method="POST" action="{% url 'search_courses' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="filiere">Filiere:</label>
+                        <select name="filiere" id="filiere" style="width: 300px" required>
+                            {% for filiere in filieres %}
+                            <option value="{{filiere.idFiliere}}">{{ filiere.titleFiliere }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="level">Level:</label>
+                        <select name="level" id="level" style="width: 300px" required>
+                            {% for level in levels %}
+                            <option value="{{level.idLevel}}">{{ level.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="module">Module:</label>
+                        <select name="module" id="module" style="width: 300px" required>
+                            {% for module in modules %}
+                            <option value="{{module.idModule}}" >{{ module.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button id="search_button">Search</button>
+                    </div>
+                </form>
+            </div>
+            <div class="news-section">
+                <h2>Search Results</h2>
+                {% for course in courses %}
+                    <a href=>{{ course.title }}</a> <a  href="{% url 'download_pdf_file' course.id %}">Download</a>
+                {% endfor %}
+            </div>
+        </div>
+        
+        
+        <script>
+            document.getElementById('logout-image').addEventListener('click', function(event) {
+                event.preventDefault();
+                window.location.href = this.parentElement.getAttribute('href');
+            });
+        </script>
+                
+        <script src="{% static 'js/script.js' %}"></script>
+
+    
+</body>
+</html>

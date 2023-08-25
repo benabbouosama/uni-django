@@ -1,0 +1,356 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/stylecr.css' %}">
+    <title>Create schedules</title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-3.7.0.min.js"></script>
+	<script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+    <style>
+      .left{
+            width:120px;
+            float:left;
+        }
+        .left table{
+            background:rgb(0, 37, 247);
+        }
+        .left td{
+            background:#eee;
+        }
+        .right{
+            float:right;
+            width:570px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .right table{
+            background:rgb(0, 37, 247);
+            width:100%;
+        }
+        .right td{
+            background:#fafafa;
+            color:#444;
+            text-align:center;
+            padding:2px;
+        }
+        .right td.drop{
+            background:#fafafa;
+            width:100px;
+        }
+        .right td.over{
+            background:#FBEC88;
+        }
+        .item{
+            text-align:center;
+            border:1px solid #499B33;
+            background:#fafafa;
+            color:#444;
+            width:100px;
+        }
+        .assigned{
+            border:1px solid #BC2A4D;
+        }
+        .trash{
+            background-color:red;
+        }
+		
+    </style>
+</head>
+<body>
+    {% csrf_token %}
+    <div class="menu">
+        <ul>
+            <li class="profile">
+                <div class="image-box">
+                    <img id="user-picture" src="{{ user.picture.url }}" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 10px;">
+                </div>
+                <h2>{{ fname }}</h2>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:homeprof' pk=request.user.pk %}" class="active">
+                    <img src="{% static 'img/home.png' %}" alt="home">
+                    <p>Home</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:courses' %}">
+                    <img src="{% static 'img/homework.png' %}" alt="clients">
+                    <p>Courses</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/report.png' %}" alt="products">
+                    <p>Reports & Internships</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/library.png' %}" alt="charts">
+                    <p>Library</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:coord' pk=request.user.pk %}">
+                    <img src="{% static 'img/registration.png' %}" alt="favourites">
+                    <p>Coordination</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/orientation.png' %}" alt="favourites">
+                    <p>Orientation</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="{% static 'img/grades.png' %}" alt="favourites">
+                    <p>Grades</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'Accounts:settings' %}">
+                    <img src="{% static 'img/settings.png' %}" alt="settings">
+                    <p>settings</p>
+                </a>
+            </li>
+            <li class="log-out">
+                <a href="{% url 'Accounts:signout' %}">
+                    <img src="{% static 'img/log out.png' %}" alt="log out">
+                    <p>log out</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+        <div class="content">
+            <div class="title-info">
+                <p>Create schedule: {{level.title}}</p>
+                <img src="{% static 'img/dashboard.png' %}" onclick="toggleNotifi()">
+            </div>
+            <div style="width:699px;">
+                <div class="left">
+                    <table>
+                        {% for module in modules %}
+                        <tr>
+                            <td><div class="item">{{ module.title }}</div></td>
+                        </tr>
+                        {% endfor %}
+                        
+                        <div id='calendar'>
+                            <button id="download-button" style="background-color: #c92e52;">Save Schedule</button>
+                        </div>
+                    </table>
+                </div>
+                <div class="right">
+                    <table>
+                        <tr>
+                            <td class="blank"></td>
+                            <td class="title">08:00</td>
+                            <td class="title">09:00</td>
+                            <td class="title">10:00</td>
+                            <td class="title">11:00</td>
+                            <td class="title">12:00</td>
+                            <td class="title">14:00</td>
+                            <td class="title">15:00</td>
+                            <td class="title">16:00</td>
+                            <td class="title">17:00</td>
+                            <td class="title">18:00</td>
+                        </tr>
+                        <tr>
+                            <td class="time">Monday</td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                        </tr>
+                        <tr>
+                            <td class="time">Tuesday</td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                        </tr>
+                        <tr>
+                            <td class="time">Wednesday</td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                        </tr>
+                        <tr>
+                            <td class="time">Thursday</td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                        </tr>
+                        <tr>
+                            <td class="time">Friday</td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                        </tr>
+                        <tr>
+                            <td class="time">Saturday</td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                            <td class="drop"></td>
+                        </tr>
+                        
+                    </table>
+                </div>
+            </div>
+            
+            
+           
+        </div>
+        <div class="notifi-box" id="box">
+            <h2>Notifications</h2>
+            <div class="notifi-item">
+                <img src="{% static 'img/user1.png' %}">
+                <div class="text">
+                    <h4>Notification 2 </h4>
+                    <p>7 minutes ago</p>
+                </div>
+            </div>
+            <div class="notifi-item">
+                <img src="{% static 'img/user1.png' %}">
+                <div class="text">
+                    <h4>Notification 1</h4>
+                    <p>2 hour ago</p>
+                </div>
+            </div>
+        </div>
+	<script>
+		$(function(){
+			$('.left .item').draggable({
+				revert:true,
+				proxy:'clone'
+			});
+			$('.right td.drop').droppable({
+				onDragEnter:function(){
+					$(this).addClass('over');
+				},
+				onDragLeave:function(){
+					$(this).removeClass('over');
+				},
+				onDrop:function(e,source){
+					$(this).removeClass('over');
+					if ($(source).hasClass('assigned')){
+						$(this).append(source);
+					} else {
+						var c = $(source).clone().addClass('assigned');
+						$(this).empty().append(c);
+						c.draggable({
+							revert:true
+						});
+					}
+				}
+			});
+			$('.left').droppable({
+				accept:'.assigned',
+				onDragEnter:function(e,source){
+					$(source).addClass('trash');
+				},
+				onDragLeave:function(e,source){
+					$(source).removeClass('trash');
+				},
+				onDrop:function(e,source){
+					$(source).remove();
+				}
+			});
+		});
+	</script>
+    <script>
+        document.getElementById('logout-image').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = this.parentElement.getAttribute('href');
+        });
+    </script>
+
+<script>
+    document.getElementById('download-button').addEventListener('click', function () {
+        const levelName = "{{ level }}";
+        const tableClone = document.querySelector('.right table').cloneNode(true);
+
+        // Convert the table to a blob
+        const blob = new Blob([tableClone.outerHTML], { type: 'text/html' });
+
+        // Create a URL for the blob
+        const blobURL = URL.createObjectURL(blob);
+
+        // Create a link element and trigger the download
+        const link = document.createElement('a');
+        link.href = blobURL;
+        link.download = `${levelName}_schedule.html`;
+        link.click();
+
+        // Clean up the blob URL
+        URL.revokeObjectURL(blobURL);
+
+        // Get the CSRF token value from the page
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        // AJAX request to save the schedule on the server
+        const formData = new FormData();
+        formData.append('csrfmiddlewaretoken', csrfToken);
+        formData.append('level', levelName);
+        formData.append('schedule_html', tableClone.outerHTML);
+
+        fetch("{% url 'save_schedule' %}", {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                // Navigate to the home page after saving
+                window.location.href = "{% url 'Accounts:homeprof' pk=request.user.pk %}";
+            } else {
+                console.error("Failed to save the schedule.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+</script>
+
+
+
+                
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

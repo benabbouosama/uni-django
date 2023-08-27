@@ -46,7 +46,7 @@ List any prerequisites that users need to have installed before they can use you
     python manage.py runserver
 
 ## Usage
-Check my LinkedIn , there is a demonstration video.
+https://www.linkedin.com/posts/oussama-benabbou-3a54531b9_educationinnovation-edtech-djuniversity-activity-7100892398481731584-SfbY?utm_source=share&utm_medium=member_desktop
 ## Contributing
 Thank you for considering contributing to our project! Your contributions help make this project better for everyone. Here's how you can get involved:
 
